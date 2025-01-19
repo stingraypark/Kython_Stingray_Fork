@@ -9,6 +9,7 @@ TOKEN_TYPES = [
   ('OPERATOR', r'[=+\-*/<>!]+'),                               # 연산자
   ('PARENTHESIS', r'[(){}[\]]'),                               # 괄호
   ('COMMA', r','),                                          	 # 쉼표
+  ('COLON', r':'),
   ('SEMICOLON', r';'),                                     	 	 # 세미콜론
   ('STRING', r'"(.*?)"'),                                  		 # 문자열 리터럴
   ('COMMENT', r'#.*'),                                      	 # 주석
@@ -28,5 +29,26 @@ def tokenize(code):
         code = code[match.end():]
         break
     if not match:
+      print(f"Unhandled part of the code: {code[:10]}")  # 디버깅 출력
       raise SyntaxError(f"Unexpected token: {code[0]}")
   return tokens
+
+source_code = """
+함수 더하기(첫번째, 두번째):
+    반환 첫번째 + 두번째  # 두 수를 더합니다
+
+# 주석 예제
+반지름_값 = 5  # 반지름
+결과 = 더하기(반지름_값, 반지름_값 * 2)  # 함수 호출
+출력("결과:", 결과)  # 결과 출력
+
+만약 결과 > 10:
+    출력("결과가 10보다 큽니다.")
+그렇지않으면:
+    출력("결과가 10 이하입니다.")
+"""
+
+# Run
+tokens = tokenize(source_code)
+for token in tokens:
+    print(token)
