@@ -18,9 +18,9 @@ answer = inquirer.prompt(question)
 while True:
     # Mode selection
     if answer['mode'] == '.kpy 실행':
-        file_path = input('실행할 파일의 경로를 입력해주세요: ')
+        file_path = input('\033[38;2;90;210;232m실행할 파일의 경로를 입력해주세요: \033[0m')
     else:
-        file_path = input('변환할 파일의 경로를 입력해주세요: ')
+        file_path = input('\033[38;2;90;210;232m변환할 파일의 경로를 입력해주세요: \033[0m')
 
     # File validation
     if not os.path.exists(file_path):
@@ -38,6 +38,7 @@ while True:
                        interpret_kpy_2_py(contents))
 
             try:
+                print()
                 subprocess.run(['python', temp_py_path], check=True)
             except subprocess.CalledProcessError as e:
                 traceback.print_exc()
